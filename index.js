@@ -8,7 +8,13 @@ class Application {
         this.$application = document.querySelector("#application");
         this.$firebaseAuthContainer = document.querySelector("#firebaseui-auth-container");
         this.ui = new firebaseui.auth.AuthUI(firebase.auth());
+
         this.$logoutButton = document.querySelector("#logoutButton");
+        this.$uploadButton = document.querySelector("#uploadButton");
+        this.$createAPost = document.querySelector("#create-a-post");
+        this.$exitCreateAPost = document.querySelector("#exit-create-a-post");
+        this.$createAPost.style.display = "none";
+
 
         this.addEventListeners();
         this.handleAuth();
@@ -71,13 +77,29 @@ class Application {
         }
 
 
+        handleUpload () {
+          this.$createAPost.style.display = "block";
+          this.$application.style.display = "none";
+        }
 
+        handleExitUpload (){
+          this.$createAPost.style.display = "none";
+          this.$application.style.display = "block";
+        }
 
 
         addEventListeners(){
 
             this.$logoutButton.addEventListener("click", (event) => {
-                this.handleLogout()
+                this.handleLogout();
+            })
+
+            this.$uploadButton.addEventListener("click", (event) => {
+              this.handleUpload();
+            })
+
+            this.$exitCreateAPost.addEventListener("click", (event) => {
+              this.handleExitUpload();
             })
     }
 

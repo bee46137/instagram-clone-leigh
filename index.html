@@ -22,7 +22,11 @@
   <body>
 
     <div id = "firebaseui-auth-container"></div>
-
+    <section id="create-a-post">
+          <input type="url" placeholder="Upload your image">
+          <input type="text" placeholder="Upload your caption">
+          <button id="exit-create-a-post">Done</button>
+    </section>
     <div id="application" class="main-container">
       <div class="navbar">
         <div class="navbar-inner">
@@ -119,6 +123,9 @@
                   src="assets/akhil.png"
                 />
               </div>
+              <button id="uploadButton">
+                Upload
+              </button>
               <button id="logoutButton">
                 Logout
               </button>
@@ -126,6 +133,7 @@
           </div>
         </div>
       </div>
+      
       <main>
         <div class="content-container">
           <div class="content">
