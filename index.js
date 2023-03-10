@@ -1,8 +1,17 @@
+class Post {
+  constructor (photoLink, caption, comments, likes ) {
+    this.photoLink = photoLink;
+    this.caption = caption;
+    this.comments = comments;
+    this.likes = likes;
+  }
+}
+
 class Application {
 
     constructor(){
 
-        
+        this.posts = [];
 
         // Initialize the FirebaseUI Widget using Firebase.
         this.$application = document.querySelector("#application");
@@ -103,7 +112,12 @@ class Application {
             })
     }
 
-
+    addPost (id, {photo, caption, likes = 0, comments = []}) {
+      if(photo != ""){
+        const newPost = {id: cuid (), photo, caption, likes, comments};
+        this.posts = [...this.posts, newPost];
+      }
+    }
 
 }
 
