@@ -1,5 +1,6 @@
 class Post {
-  constructor (photoLink, caption, comments, likes ) {
+  constructor (postId, photoLink, caption, comments, likes ) {
+    this.postId = postId;
     this.photoLink = photoLink;
     this.caption = caption;
     this.comments = comments;
@@ -25,6 +26,8 @@ class Application {
         this.$createAPost.style.display = "none";
 
         this.$posts = document.querySelector(".posts");
+        this.$caption = document.querySelector("#caption-upload");
+        this.$image = document.querySelector("#image-upload");
 
 
         this.addEventListeners();
@@ -87,16 +90,31 @@ class Application {
           });
     }
 
+    handlePostUpload () {
+      if(this.$image.value != "" && this.$caption.value != "") {
+            this.posts = [...this.posts, new Post((cuid()), this.$image.value, this.$caption.value, [], 0)];
+            console.log(this.posts);
+      } else if (this.$image.value != "" || this.$caption.value != "") {
+            alert("Please choose an image AND upload a caption.");
+            this.openUpload();
+      } else {
+            this.closeUpload();
+      };
+      this.render();
+    }
 
-    handleUpload () {
+    openUpload () {
       this.$createAPost.style.display = "block";
       this.$application.style.display = "none";
     }
 
-    handleExitUpload (){
+    closeUpload () {
       this.$createAPost.style.display = "none";
       this.$application.style.display = "block";
+      this.image = "";
+      this.caption = "";
     }
+
 
 
     addEventListeners(){
@@ -106,21 +124,22 @@ class Application {
         })
 
         this.$uploadButton.addEventListener("click", (event) => {
-          this.handleUpload();
+          this.openUpload();
         })
 
         this.$exitCreateAPost.addEventListener("click", (event) => {
-          this.handleExitUpload();
+          this.handlePostUpload();
+          this.closeUpload();
         })
     }
 
-    addPost ({photo, caption, likes = 0, comments = []}) {
-      if(photo != ""){
-        const newPost = {id: cuid (), photo, caption, likes, comments};
-        this.posts = [...this.posts, newPost];
-        this.render();
-      }
-    }
+    // addPost ({photo, caption, likes = 0, comments = []}) {
+    //   if(photo != ""){
+    //     const newPost = {id: cuid (), photo, caption, likes, comments};
+    //     this.posts = [...this.posts, newPost];
+    //     this.render();
+    //   }
+    // }
 
     savePosts(){
       console.log("Post saved.")
@@ -134,7 +153,7 @@ class Application {
 
 
     displayPosts () {
-      this.$posts.innerHTML = this.posts.map((post) =>
+      this.$posts.innerHTML = this.posts.map((Post) =>
         `
         <div class="post">
                 <div class="header">
@@ -194,7 +213,7 @@ class Application {
                     class="FFVAD"
                     decoding="auto"
                     sizes="614px"
-                    src="${this.post.photoLink}"
+                    src="${"hello"}"
                     style="object-fit: cover"
                   />
                 </div>
@@ -270,7 +289,7 @@ class Application {
                   <span class="caption">
                     <span class="caption-username"><b>jayshetty</b></span>
                     <span class="caption-text">
-                      ${this.post.caption}...
+                      ${hello}...
                       more</span
                     >
                   </span>
